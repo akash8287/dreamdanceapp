@@ -1,0 +1,10 @@
+# Monorepo: API lives in `backend/`. Commit and push after changes.
+# In Railway → Service → Settings: clear custom Build / Start if they fight this file.
+
+[build]
+buildCommand = "npm ci --prefix backend && npm run build --prefix backend"
+
+[deploy]
+startCommand = "npm start --prefix backend"
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30

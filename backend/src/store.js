@@ -5,13 +5,18 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, '..', 'data');
 const DATA_FILE = path.join(DATA_DIR, 'videos.json');
+const SEED_FILE = path.join(DATA_DIR, 'seed-videos.json');
 
 function ensureDataFile() {
   if (!fs.existsSync(DATA_DIR)) {
     fs.mkdirSync(DATA_DIR, { recursive: true });
   }
   if (!fs.existsSync(DATA_FILE)) {
-    fs.writeFileSync(DATA_FILE, '[]', 'utf8');
+    if (fs.existsSync(SEED_FILE)) {
+      fs.copyFileSync(SEED_FILE, DATA_FILE);
+    } else {
+      fs.writeFileSync(DATA_FILE, '[]', 'utf8');
+    }
   }
 }
 

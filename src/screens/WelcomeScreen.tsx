@@ -40,7 +40,7 @@ export function WelcomeScreen() {
       <Text style={styles.footer}>
         {apiBaseUrl.trim()
           ? `Current server:\n${apiBaseUrl}`
-          : 'Tip: use Admin to set the API URL (try http://10.0.2.2:3001 for Android emulator).'}
+          : 'Tip: use Admin to change the API URL (default is production on Render).'}
       </Text>
     </View>
   );

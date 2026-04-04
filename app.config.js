@@ -1,7 +1,8 @@
 /** @type {import('expo/config').ExpoConfig} */
 
 const API_BASE_URL =
-  process.env.EXPO_PUBLIC_API_BASE_URL?.trim() || 'http://10.0.2.2:3001';
+  process.env.EXPO_PUBLIC_API_BASE_URL?.trim() ||
+  'https://dreamdanceapp.onrender.com';
 
 module.exports = {
   expo: {

@@ -1,0 +1,112 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1111111111",
+    "title": "Dance Championship — Finale Night",
+    "description": "Featured finale showcase. Live energy, spotlight performances.",
+    "category": "dance",
+    "featured": true,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-04-01T18:00:00.000Z"
+  },
+  {
+    "id": "48f0e7d1-95ab-42c0-8a52-60c910323717",
+    "title": "Solo Audition — Week 3",
+    "description": "Street style round.",
+    "category": "audition",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-24T12:49:38.134Z"
+  },
+  {
+    "id": "b2c3d4e5-f6a7-8901-bcde-f12222222222",
+    "title": "Dance Mania — Highlights",
+    "description": "Crowd favorites from last season.",
+    "category": "dance",
+    "featured": true,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-30T10:15:00.000Z"
+  },
+  {
+    "id": "c3d4e5f6-a7b8-9012-cdef-123333333333",
+    "title": "Step Up Challenge — Top 8",
+    "description": "Battles and callbacks.",
+    "category": "dance",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1508700929628-666bc8bd84ea?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-29T14:22:00.000Z"
+  },
+  {
+    "id": "d4e5f6a7-b8c9-0123-def0-234444444444",
+    "title": "Groove Masters — Workshop",
+    "description": "Technique and freestyle drills.",
+    "category": "dance",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1547153760-18fc86324498?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-28T09:00:00.000Z"
+  },
+  {
+    "id": "e5f6a7b8-c9d0-1234-ef01-345555555555",
+    "title": "Music Auditions — Register teaser",
+    "description": "Show your talent — vocal and performance.",
+    "category": "audition",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1516280440614-37939bbacd81?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-27T16:40:00.000Z"
+  },
+  {
+    "id": "f6a7b8c9-d0e1-2345-f012-456666666666",
+    "title": "Acting & Modeling — Open call",
+    "description": "Monologue and runway prep tips.",
+    "category": "audition",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-26T11:05:00.000Z"
+  },
+  {
+    "id": "a7b8c9d0-e1f2-3456-0123-567777777777",
+    "title": "Hip-Hop Crew — Regional",
+    "description": "Full crew set, synchronized blocks.",
+    "category": "dance",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-25T20:30:00.000Z"
+  },
+  {
+    "id": "b8c9d0e1-f2a3-4567-1234-678888888888",
+    "title": "Contemporary Solo — Judges' pick",
+    "description": "Emotional piece, minimal staging.",
+    "category": "dance",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1503095396549-807759245b35?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-23T08:50:00.000Z"
+  },
+  {
+    "id": "c9d0e1f2-a3b4-5678-2345-789999999999",
+    "title": "Dance Battle — Wildcard round",
+    "description": "Surprise guests and sudden death.",
+    "category": "dance",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-22T13:18:00.000Z"
+  },
+  {
+    "id": "d0e1f2a3-b4c5-6789-3456-890000000000",
+    "title": "Talent Showcase — Backstage",
+    "description": "Interviews and warm-ups.",
+    "category": "audition",
+    "featured": false,
+    "streamUrl": "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+    "thumbnailUrl": "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
+    "createdAt": "2026-03-21T17:00:00.000Z"
+  }
+]

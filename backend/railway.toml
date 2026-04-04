@@ -1,0 +1,6 @@
+# Use this file only if Railway **Root Directory** = `backend` (API-only checkout).
+# If Root Directory = repo root, Railway uses `/railway.toml` (monorepo).
+
+[deploy]
+healthcheckPath = "/api/health"
+healthcheckTimeout = 30
