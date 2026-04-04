@@ -51,7 +51,7 @@ export function AdminConfigScreen() {
       <Text style={styles.title}>GrooveX server</Text>
       <Text style={styles.sub}>
         Base URL only — no path. Examples:{'\n'}
-        • Default: https://dreamdanceapp.onrender.com{'\n'}
+        • Default: https://dreamdanceapp-production.up.railway.app{'\n'}
         • Android emulator: http://10.0.2.2:3001{'\n'}
         • USB device: http://YOUR_LAN_IP:3001
       </Text>
@@ -63,7 +63,7 @@ export function AdminConfigScreen() {
         onChangeText={setUrl}
         autoCapitalize="none"
         autoCorrect={false}
-        placeholder="https://dreamdanceapp.onrender.com"
+        placeholder="https://dreamdanceapp-production.up.railway.app"
         placeholderTextColor={colors.textMuted}
       />
 

@@ -2,7 +2,7 @@
 
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_BASE_URL?.trim() ||
-  'https://dreamdanceapp.onrender.com';
+  'https://dreamdanceapp-production.up.railway.app';
 
 module.exports = {
   expo: {
