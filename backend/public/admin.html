@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GrooveX — Admin</title>
+  <style>
+    :root {
+      --bg: #0a0e18;
+      --surface: #121a2c;
+      --card: #1a2438;
+      --border: #2a3f5c;
+      --accent: #ff8a3c;
+      --accent-dim: #c45c1a;
+      --accent-blue: #4da3ff;
+      --text: #f4f7fc;
+      --muted: #8b95a8;
+      --success: #34d399;
+      --danger: #f87171;
+      --radius: 14px;
+      --shadow: 0 12px 40px rgba(0,0,0,.5);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: radial-gradient(1000px 520px at 15% -8%, rgba(255,138,60,.12) 0%, transparent 50%),
+        radial-gradient(900px 480px at 100% 0%, rgba(77,163,255,.08) 0%, transparent 45%),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    .hidden { display: none !important; }
+
+    /* Login */
+    #login-screen {
+      max-width: 400px;
+      margin: 8vh auto;
+      padding: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    #login-screen h1 {
+      margin: 0 0 8px;
+      font-size: 1.75rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0;
+    }
+    #login-screen p { color: var(--muted); font-size: 0.9rem; margin: 0 0 20px; }
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+      box-shadow: 0 0 0 3px rgba(77,163,255,.2);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform .12s, opacity .12s;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+    .btn-primary {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dim));
+      color: #0a0e18;
+      margin-top: 8px;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+    .btn-danger {
+      background: rgba(255,107,138,.15);
+      color: var(--danger);
+      border: 1px solid rgba(255,107,138,.35);
+    }
+    .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
+
+    /* Dashboard */
+    #dashboard { max-width: 1200px; margin: 0 auto; padding: 20px 20px 48px; }
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    .brand { font-size: 1.5rem; font-weight: 800; display: inline-flex; align-items: baseline; gap: 0; }
+    .brand-groove { letter-spacing: 0.06em; color: var(--text); }
+    .brand-x { color: var(--accent-blue); }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .tab {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .tab.active {
+      background: rgba(255, 138, 60, 0.22);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .panel-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+    .panel-section h2 {
+      margin: 0 0 6px;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .panel-section .hint { color: var(--muted); font-size: 0.85rem; margin-bottom: 20px; }
+
+    .form-grid {
+      display: grid;
+      gap: 16px;
+      max-width: 560px;
+    }
+    @media (min-width: 640px) {
+      .form-grid.two { grid-template-columns: 1fr 1fr; }
+    }
+    .form-grid label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .form-grid input[type="text"],
+    .form-grid input[type="file"],
+    .form-grid select,
+    .form-grid textarea {
+      width: 100%;
+      padding: 11px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .form-grid textarea { min-height: 88px; resize: vertical; }
+    .check-row { display: flex; align-items: center; gap: 10px; margin-top: 4px; }
+    .check-row input { width: auto; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .toolbar input[type="search"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+    }
+    .toolbar select {
+      padding: 11px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .v-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .v-card .thumb {
+      aspect-ratio: 16/10;
+      background: #060912;
+      position: relative;
+      overflow: hidden;
+    }
+    .v-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .v-card .thumb .ph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-blue);
+    }
+    .v-card .badges {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+    }
+    .badge.featured { background: var(--accent); color: #0a0e18; }
+    .v-card .body { padding: 14px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+    .v-card .title { font-weight: 700; font-size: 0.95rem; line-height: 1.35; }
+    .v-card .meta { font-size: 0.75rem; color: var(--muted); }
+    .v-card .actions { display: flex; gap: 8px; margin-top: auto; flex-wrap: wrap; }
+
+    /* Modal */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(6,9,18,.82);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .modal {
+      width: 100%;
+      max-width: 520px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin: 4vh 0 48px;
+      box-shadow: var(--shadow);
+    }
+    .modal h3 { margin: 0 0 16px; font-size: 1.2rem; }
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+    .modal-actions .btn-primary { width: auto; flex: 1; min-width: 140px; }
+
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(120px);
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      z-index: 200;
+      opacity: 0;
+      transition: transform .25s, opacity .25s;
+      max-width: 90vw;
+      text-align: center;
+    }
+    #toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    #toast.ok { background: #143d2e; color: var(--success); border: 1px solid #2a6b4e; }
+    #toast.err { background: #3d1420; color: var(--danger); border: 1px solid #6b2a3a; }
+
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+    }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      margin: 24px auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="login-screen">
+    <h1><span class="brand-groove">GROOVE</span><span class="brand-x">X</span>&nbsp;admin</h1>
+    <p>Sign in to upload, edit, and remove videos. Default: <strong>admin</strong> / <strong>admin</strong>.</p>
+    <div class="field">
+      <label for="u">Username</label>
+      <input id="u" type="text" autocomplete="username" value="admin" />
+    </div>
+    <div class="field">
+      <label for="p">Password</label>
+      <input id="p" type="password" autocomplete="current-password" value="admin" />
+    </div>
+    <button type="button" class="btn btn-primary" id="btn-connect">Connect</button>
+    <p style="margin-top:16px;font-size:0.8rem;color:var(--muted)">Session saved in this browser until you log out.</p>
+  </div>
+
+  <div id="dashboard" class="hidden">
+    <div class="topbar">
+      <div class="brand"><span class="brand-groove">GROOVE</span><span class="brand-x">X</span> <span style="font-size:0.85rem;font-weight:600;color:var(--muted)">Studio</span></div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="tabs">
+          <button type="button" class="tab active" data-tab="upload">Upload</button>
+          <button type="button" class="tab" data-tab="library">Library</button>
+        </div>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-logout">Log out</button>
+      </div>
+    </div>
+
+    <section id="panel-upload" class="panel-section">
+      <h2>New video</h2>
+      <p class="hint">MP4 and common formats. Large files may take a while through tunnels.</p>
+      <form id="form-upload" class="form-grid two">
+        <div>
+          <label for="up-title">Title</label>
+          <input id="up-title" name="title" type="text" required placeholder="e.g. Solo audition — Week 3" />
+        </div>
+        <div>
+          <label for="up-cat">Category</label>
+          <select id="up-cat" name="category" required>
+            <option value="audition">Audition</option>
+            <option value="dance">Dance</option>
+          </select>
+        </div>
+        <div>
+          <label for="up-desc">Description</label>
+          <textarea id="up-desc" name="description" placeholder="Optional notes"></textarea>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="up-featured" />
+          <label for="up-featured" style="margin:0;font-weight:600;color:var(--text)">Featured (home hero & trending)</label>
+        </div>
+        <div>
+          <label for="up-video">Video file</label>
+          <input id="up-video" name="video" type="file" accept="video/*" required />
+        </div>
+        <div>
+          <label for="up-thumb">Thumbnail (optional)</label>
+          <input id="up-thumb" name="thumbnail" type="file" accept="image/*" />
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary" style="width:auto;margin-top:8px">Upload video</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="panel-library" class="panel-section hidden">
+      <h2>Library</h2>
+      <p class="hint">Edit metadata, replace files, or delete. Changes apply immediately in the app.</p>
+      <div class="toolbar">
+        <input type="search" id="lib-search" placeholder="Search title or description…" />
+        <select id="lib-filter">
+          <option value="all">All categories</option>
+          <option value="audition">Auditions</option>
+          <option value="dance">Dances</option>
+        </select>
+        <button type="button" class="btn btn-ghost btn-sm" id="lib-refresh">Refresh</button>
+      </div>
+      <div id="lib-loading" class="hidden"><div class="spinner"></div></div>
+      <div id="lib-grid" class="video-grid"></div>
+      <div id="lib-empty" class="empty-state hidden">No videos match your filters.</div>
+    </section>
+  </div>
+
+  <div id="modal-root" class="modal-backdrop hidden" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="modal-title">
+      <h3 id="modal-title">Edit video</h3>
+      <form id="form-edit" class="form-grid">
+        <input type="hidden" id="edit-id" />
+        <div>
+          <label for="edit-title">Title</label>
+          <input id="edit-title" type="text" required />
+        </div>
+        <div>
+          <label for="edit-cat">Category</label>
+          <select id="edit-cat">
+            <option value="audition">Audition</option>
+            <option value="dance">Dance</option>
+          </select>
+        </div>
+        <div>
+          <label for="edit-desc">Description</label>
+          <textarea id="edit-desc"></textarea>
+        </div>
+        <div class="check-row">
+          <input type="checkbox" id="edit-featured" />
+          <label for="edit-featured" style="margin:0;font-weight:600;color:var(--text)">Featured</label>
+        </div>
+        <div>
+          <label for="edit-video">Replace video (optional)</label>
+          <input id="edit-video" type="file" accept="video/*" />
+        </div>
+        <div>
+          <label for="edit-thumb">Replace thumbnail (optional)</label>
+          <input id="edit-thumb" type="file" accept="image/*" />
+        </div>
+        <div class="modal-actions">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-danger" id="modal-delete">Delete video</button>
+          <button type="button" class="btn btn-ghost" id="modal-close">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+(function () {
+  const STORAGE_KEY = 'groovex_admin_basic';
+
+  function getAuthHeader() {
+    return sessionStorage.getItem(STORAGE_KEY) || localStorage.getItem(STORAGE_KEY);
+  }
+  function setAuthHeader(basic) {
+    sessionStorage.setItem(STORAGE_KEY, basic);
+    localStorage.setItem(STORAGE_KEY, basic);
+  }
+  function clearAuth() {
+    sessionStorage.removeItem(STORAGE_KEY);
+    localStorage.removeItem(STORAGE_KEY);
+  }
+
+  function auth() {
+    const h = getAuthHeader();
+    if (!h) return null;
+    return 'Basic ' + h;
+  }
+
+  async function api(path, opts = {}) {
+    const headers = { ...opts.headers };
+    const a = auth();
+    if (a) headers.Authorization = a;
+    const res = await fetch(path, { ...opts, headers });
+    const text = await res.text();
+    let data = {};
+    try { data = text ? JSON.parse(text) : {}; } catch (_) {}
+    if (!res.ok) {
+      const err = new Error(data.error || res.statusText || 'Request failed');
+      err.status = res.status;
+      throw err;
+    }
+    return data;
+  }
+
+  function toast(msg, type) {
+    const el = document.getElementById('toast');
+    el.textContent = msg;
+    el.className = type === 'ok' ? 'ok' : 'err';
+    el.classList.add('show');
+    clearTimeout(el._t);
+    el._t = setTimeout(() => el.classList.remove('show'), 4200);
+  }
+
+  const loginScreen = document.getElementById('login-screen');
+  const dashboard = document.getElementById('dashboard');
+  const btnConnect = document.getElementById('btn-connect');
+  const btnLogout = document.getElementById('btn-logout');
+
+  function showDashboard() {
+    loginScreen.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    loadLibrary();
+  }
+
+  function showLogin() {
+    dashboard.classList.add('hidden');
+    loginScreen.classList.remove('hidden');
+  }
+
+  btnConnect.addEventListener('click', async () => {
+    const u = document.getElementById('u').value.trim();
+    const p = document.getElementById('p').value;
+    setAuthHeader(btoa(u + ':' + p));
+    btnConnect.disabled = true;
+    try {
+      await api('/api/admin/videos');
+      toast('Connected', 'ok');
+      showDashboard();
+    } catch (e) {
+      clearAuth();
+      toast(e.message || 'Login failed', 'err');
+    } finally {
+      btnConnect.disabled = false;
+    }
+  });
+
+  btnLogout.addEventListener('click', () => {
+    clearAuth();
+    showLogin();
+    toast('Logged out', 'ok');
+  });
+
+  if (getAuthHeader()) {
+    api('/api/admin/videos').then(() => showDashboard()).catch(() => {
+      clearAuth();
+    });
+  }
+
+  /* Tabs */
+  document.querySelectorAll('.tab').forEach((t) => {
+    t.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach((x) => x.classList.remove('active'));
+      t.classList.add('active');
+      const tab = t.dataset.tab;
+      document.getElementById('panel-upload').classList.toggle('hidden', tab !== 'upload');
+      document.getElementById('panel-library').classList.toggle('hidden', tab !== 'library');
+      if (tab === 'library') loadLibrary();
+    });
+  });
+
+  /* Upload */
+  document.getElementById('form-upload').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const fd = new FormData(form);
+    if (document.getElementById('up-featured').checked) fd.set('featured', 'true');
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    try {
+      await api('/api/admin/videos', { method: 'POST', body: fd });
+      toast('Video uploaded', 'ok');
+      form.reset();
+      loadLibrary();
+    } catch (err) {
+      toast(err.message, 'err');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  let videosCache = [];
+
+  async function loadLibrary() {
+    const loading = document.getElementById('lib-loading');
+    const grid = document.getElementById('lib-grid');
+    const empty = document.getElementById('lib-empty');
+    if (!auth()) return;
+    loading.classList.remove('hidden');
+    grid.innerHTML = '';
+    try {
+      const data = await api('/api/admin/videos');
+      videosCache = data.videos || [];
+      renderLibrary();
+    } catch (e) {
+      toast(e.message, 'err');
+      if (e.status === 401) showLogin();
+    } finally {
+      loading.classList.add('hidden');
+    }
+  }
+
+  function renderLibrary() {
+    const q = document.getElementById('lib-search').value.trim().toLowerCase();
+    const cat = document.getElementById('lib-filter').value;
+    let list = videosCache.slice();
+    if (cat !== 'all') list = list.filter((v) => v.category === cat);
+    if (q) {
+      list = list.filter(
+        (v) =>
+          (v.title && v.title.toLowerCase().includes(q)) ||
+          (v.description && v.description.toLowerCase().includes(q))
+      );
+    }
+    const grid = document.getElementById('lib-grid');
+    const empty = document.getElementById('lib-empty');
+    grid.innerHTML = '';
+    if (!list.length) {
+      empty.classList.remove('hidden');
+      return;
+    }
+    empty.classList.add('hidden');
+    list.forEach((v) => {
+      const card = document.createElement('div');
+      card.className = 'v-card';
+      const thumbUrl = v.thumbnailUrl;
+      const initial = (v.title || '?').slice(0, 1).toUpperCase();
+      const badges = `<div class="badges">
+        <span class="badge">${v.category === 'dance' ? 'Dance' : 'Audition'}</span>
+        ${v.featured ? '<span class="badge featured">Featured</span>' : ''}
+      </div>`;
+      card.innerHTML = `
+        <div class="thumb">
+          ${thumbUrl ? `<img src="${thumbUrl}" alt="" loading="lazy" />` : `<div class="ph">${initial}</div>`}
+          ${badges}
+        </div>
+        <div class="body">
+          <div class="title"></div>
+          <div class="meta"></div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary btn-sm btn-edit">Edit</button>
+            <button type="button" class="btn btn-danger btn-sm btn-del">Delete</button>
+          </div>
+        </div>`;
+      card.querySelector('.title').textContent = v.title;
+      const d = v.createdAt ? new Date(v.createdAt) : null;
+      card.querySelector('.meta').textContent =
+        (d && !isNaN(d) ? d.toLocaleString() : '') +
+        (v.description ? ' · ' + v.description.slice(0, 60) + (v.description.length > 60 ? '…' : '') : '');
+      card.querySelector('.btn-edit').addEventListener('click', () => openModal(v));
+      card.querySelector('.btn-del').addEventListener('click', () => confirmDelete(v));
+      grid.appendChild(card);
+    });
+  }
+
+  document.getElementById('lib-search').addEventListener('input', renderLibrary);
+  document.getElementById('lib-filter').addEventListener('change', renderLibrary);
+  document.getElementById('lib-refresh').addEventListener('click', loadLibrary);
+
+  function confirmDelete(v) {
+    if (!confirm('Delete “' + v.title + '”? This cannot be undone.')) return;
+    api('/api/admin/videos/' + encodeURIComponent(v.id), { method: 'DELETE' })
+      .then(() => {
+        toast('Deleted', 'ok');
+        loadLibrary();
+      })
+      .catch((e) => toast(e.message, 'err'));
+  }
+
+  const modalRoot = document.getElementById('modal-root');
+  const formEdit = document.getElementById('form-edit');
+
+  function openModal(v) {
+    document.getElementById('edit-id').value = v.id;
+    document.getElementById('edit-title').value = v.title || '';
+    document.getElementById('edit-desc').value = v.description || '';
+    document.getElementById('edit-cat').value = v.category === 'dance' ? 'dance' : 'audition';
+    document.getElementById('edit-featured').checked = !!v.featured;
+    document.getElementById('edit-video').value = '';
+    document.getElementById('edit-thumb').value = '';
+    modalRoot.classList.remove('hidden');
+    modalRoot.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal() {
+    modalRoot.classList.add('hidden');
+    modalRoot.setAttribute('aria-hidden', 'true');
+  }
+
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  modalRoot.addEventListener('click', (e) => {
+    if (e.target === modalRoot) closeModal();
+  });
+
+  document.getElementById('modal-delete').addEventListener('click', async () => {
+    const id = document.getElementById('edit-id').value;
+    const v = videosCache.find((x) => x.id === id);
+    if (!v) return;
+    if (!confirm('Delete “' + v.title + '”? This cannot be undone.')) return;
+    try {
+      await api('/api/admin/videos/' + encodeURIComponent(id), { method: 'DELETE' });
+      toast('Deleted', 'ok');
+      closeModal();
+      loadLibrary();
+    } catch (e) {
+      toast(e.message, 'err');
+    }
+  });
+
+  formEdit.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const id = document.getElementById('edit-id').value;
+    const submitBtn = formEdit.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    try {
+      await api('/api/admin/videos/' + encodeURIComponent(id), {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: document.getElementById('edit-title').value.trim(),
+          description: document.getElementById('edit-desc').value.trim(),
+          category: document.getElementById('edit-cat').value,
+          featured: document.getElementById('edit-featured').checked,
+        }),
+      });
+      const vFile = document.getElementById('edit-video').files[0];
+      const tFile = document.getElementById('edit-thumb').files[0];
+      if (vFile || tFile) {
+        const fd = new FormData();
+        if (vFile) fd.append('video', vFile);
+        if (tFile) fd.append('thumbnail', tFile);
+        await api('/api/admin/videos/' + encodeURIComponent(id) + '/media', {
+          method: 'POST',
+          body: fd,
+        });
+      }
+      toast('Saved', 'ok');
+      closeModal();
+      loadLibrary();
+    } catch (err) {
+      toast(err.message, 'err');
+    } finally {
+      submitBtn.disabled = false;
+    }
+  });
+})();
+  </script>
+</body>
+</html>
