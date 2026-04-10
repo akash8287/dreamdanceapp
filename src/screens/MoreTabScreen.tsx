@@ -53,6 +53,15 @@ export function MoreTabScreen() {
           )}
         </Pressable>
         {status ? <Text style={styles.status}>{status}</Text> : null}
+        {apiBaseUrl.trim() ? (
+          <Text style={styles.diag} selectable>
+            On this phone, open in Chrome:{'\n'}
+            {`${apiBaseUrl.replace(/\/+$/, '')}/api/health`}
+            {'\n'}
+            If the browser cannot load JSON, open EC2 security group TCP 3001
+            to the internet (and check ufw).
+          </Text>
+        ) : null}
       </View>
 
       <Pressable
@@ -117,6 +126,12 @@ const styles = StyleSheet.create({
     marginTop: 12,
     color: colors.textMuted,
     fontSize: 13,
+  },
+  diag: {
+    marginTop: 14,
+    color: colors.textMuted,
+    fontSize: 11,
+    lineHeight: 16,
   },
   link: {
     marginTop: 24,

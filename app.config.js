@@ -1,5 +1,7 @@
 /** @type {import('expo/config').ExpoConfig} */
 
+const withAndroidHttpCleartext = require('./plugins/withAndroidHttpCleartext.cjs');
+
 /** EC2 public API (HTTP). Override with EXPO_PUBLIC_API_BASE_URL for Railway / HTTPS. */
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_BASE_URL?.trim() ||
@@ -32,7 +34,19 @@ module.exports = {
       predictiveBackGestureEnabled: false,
       usesCleartextTraffic: true,
     },
-    plugins: ['expo-secure-store'],
+    plugins: [
+      'expo-secure-store',
+      [
+        'expo-build-properties',
+        {
+          android: {
+            usesCleartextTraffic: true,
+          },
+        },
+      ],
+      // OkHttp still blocks cleartext in some release builds unless network_security_config exists.
+      withAndroidHttpCleartext,
+    ],
     extra: {
       eas: {
         projectId: '4c709f6d-7181-443f-8967-f9ea6ef4e374',
