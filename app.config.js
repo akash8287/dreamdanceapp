@@ -1,8 +1,9 @@
 /** @type {import('expo/config').ExpoConfig} */
 
+/** EC2 public API (HTTP). Override with EXPO_PUBLIC_API_BASE_URL for Railway / HTTPS. */
 const API_BASE_URL =
   process.env.EXPO_PUBLIC_API_BASE_URL?.trim() ||
-  'https://dreamdanceapp-production.up.railway.app';
+  'http://16.171.47.190:3001';
 
 module.exports = {
   expo: {

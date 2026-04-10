@@ -51,9 +51,9 @@ export function AdminConfigScreen() {
       <Text style={styles.title}>GrooveX server</Text>
       <Text style={styles.sub}>
         Base URL only — no path. Examples:{'\n'}
-        • Default: https://dreamdanceapp-production.up.railway.app{'\n'}
-        • Android emulator: http://10.0.2.2:3001{'\n'}
-        • USB device: http://YOUR_LAN_IP:3001
+        • EC2 (real phone): http://16.171.47.190:3001{'\n'}
+        • Android emulator → same machine: http://10.0.2.2:3001{'\n'}
+        • Railway / HTTPS: https://your-app.up.railway.app
       </Text>
 
       <Text style={styles.label}>API base URL</Text>
@@ -63,7 +63,7 @@ export function AdminConfigScreen() {
         onChangeText={setUrl}
         autoCapitalize="none"
         autoCorrect={false}
-        placeholder="https://dreamdanceapp-production.up.railway.app"
+        placeholder="http://16.171.47.190:3001"
         placeholderTextColor={colors.textMuted}
       />
 

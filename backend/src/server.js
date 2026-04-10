@@ -39,7 +39,7 @@ const upload = multer({
 const app = express();
 // Tunnels (Tunnelmole, ngrok, cloudflared) send X-Forwarded-*; needed for correct https + host in API URLs.
 app.set('trust proxy', true);
-app.use(cors({ origin: true }));
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 app.use('/uploads', express.static(UPLOADS));
 app.use(express.static(path.join(ROOT, 'public')));
